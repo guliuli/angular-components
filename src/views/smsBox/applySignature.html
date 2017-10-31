@@ -1,0 +1,106 @@
+<div class="view-applySignatureBox">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title">个性签名申请</h3>
+    </div>
+    <div class="modal-body" cg-busy="{promise:loading ,message:'加载中。。。'}">
+        <div class="slogan slogan-help">
+            <img src="../app/images/pages/reminder.png" class="slogan-icon">
+
+            <div class="slogan-content">
+                <h5>帮助说明：</h5>
+                个性短信签名审核周期1到2个工作日，默认为店铺名称，如有特殊需求或修改请联系在线客服，个性签名未审核通过前请用平台级签名或将店铺名称直接写入短信内容中。
+            </div>
+        </div>
+        <div style="padding-top: 10px;margin-bottom: -15px;">
+            <form class="form-horizontal" name="mainForm">
+                <div class="shop-info" ng-if="!status">
+                    <div class="form-group" ng-class="{'has-error':mainForm.realName.$invalid}">
+                        <label class="control-label col-xs-4"><span class="text-warning">*&nbsp</span>姓名:</label>
+                        <div class="controls col-xs-8">
+                            <input type="text" class="form-control input-sm input-long no-transition" name="realName"
+                                   ng-model="shopInfo.realName"
+                                   required
+                                   dp-not-all-english="^[A-Za-z]+$"
+                                   ng-maxlength="8"/>
+                           <div class="help-block" ng-show="mainForm.realName.$invalid">
+                               <span ng-show="mainForm.realName.$error.required">请输入姓名</span>
+                               <span ng-show="mainForm.realName.$error.dpNotAllEnglish">姓名不能全为英文</span>
+                               <span ng-show="mainForm.realName.$error.maxlength">不能超过8个字符</span>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4"><span class="text-warning">*&nbsp</span>角色:</label>
+                        <div class="controls col-xs-8">
+                            <select type="text" class="form-control input-sm input-long no-transition" name="role"
+                                    ng-model="shopInfo.role">
+                                <option value="0">店长/运营</option>
+                                <option value="1">CRM专员</option>
+                                <option value="2">客服</option>
+                                <option value="3">老板</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4">QQ:</label>
+                        <div class="controls col-xs-8">
+                            <input type="text" class="form-control input-sm input-long no-transition" name="qq"
+                                   ng-model="shopInfo.qq"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4"><span class="text-warning">*&nbsp</span>手机号:</label>
+                        <div class="controls col-xs-8">
+                            <input type="text" class="form-control input-sm input-long form-control-static"
+                                   name="checkCodeMobile"
+                                   ng-model="shopInfo.checkCodeMobile" ng-disabled="!isEdit && status"/>
+                            <span ng-if="!isEdit && status" class="text-base link form-text" ng-click="modifyMobile()"> 修改</span>
+                            <span ng-if="isEdit && !isValidate && status" class="text-base link form-text"
+                                  ng-click="exitModifyMobile()"> 取消</span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="!status || isEdit" ng-class="{'has-error'mainForm.checkCode.$invalid}">
+                        <label class="control-label col-xs-4"><span class="text-warning">*&nbsp</span> 验证码:</label>
+                        <div class="controls col-xs-8">
+                            <input type="text" class="form-control input-sm input-long form-control-static no-transition"
+                                   name="checkCode"
+                                   required
+                                   ng-model="shopInfo.checkCode"/>
+                            <span class="link form-text text-base" ng-if="!checkCodeTime"
+                                  ng-click="getCheckCode()">获取验证码
+                            </span>
+                            <span ng-show="checkCodeTime"> {{checkCodeTime}}后重发...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopName">
+                    <div class="form-group" ng-class="{'has-error':mainForm.shopName.$invalid}">
+                        <div class="control-label col-xs-4">
+                            个性签名:
+                        </div>
+                        <div class="controls col-xs-8">
+                            <input type="text" class="form-control input-lg input-long no-transition"
+                                   name="shopName"
+                                   ng-minlength="3"
+                                   ng-maxlength="8"
+                                   ng-model="shopName"
+                                   required/>
+                            <div class="help-block" ng-show="mainForm.shopName.$invalid">
+                                <span >请输入3~8个字符</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="text-center">
+            <button class="btn btn-base" ng-click="save()" ng-class="{disabled:mainForm.$invalid}">马上申请</button>
+            <button class="btn btn-default" data-ng-click="cancel()">取消</button>
+        </div>
+    </div>
+</div>

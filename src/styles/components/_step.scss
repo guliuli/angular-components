@@ -1,0 +1,55 @@
+.step {
+  .step-node{
+    display: inline-block;
+    .wrap {
+      display: inline-block;
+    }
+    .round {
+      width: 22px;
+      height: 22px;
+      border-radius: 15px;
+      font-size: 12px;
+      color: #FFF;
+      line-height: 22px;
+      text-align: center;
+      display: inline-block;
+    }
+    .bar {
+      margin: 5px;
+      width: 20px;
+      height: 4px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+  }
+  .todo {
+    .round{
+      background-color: $gray-lighter;
+    }
+    .bar{
+      background-color: $gray-lighter;
+    }
+  }
+  .finished{
+    label{
+      color:#B4F3B7;
+    }
+    .round{
+      background-color: #B4F3B7;
+    }
+    .bar{
+      background-color: #B4F3B7;
+    }
+  }
+  .current{
+    label{
+      color:$bg-color-base;
+    }
+    .round{
+      background-color: $bg-color-base;
+    }
+    .bar{
+      background-color: $bg-color-base;
+    }
+  }
+}
